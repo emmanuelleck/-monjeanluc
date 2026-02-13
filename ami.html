@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="heart.png">
+<link rel="apple-touch-icon" href="heart.png">
+<meta charset="UTF-8">
+<title>Un gift spécial</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #fff0f5;
+  color: #8b1a2b;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+}
+
+h1, h2 {
+  font-size: 2.2em;
+  letter-spacing: 1px;
+  color: #8b1a2b;
+  text-shadow: 0 0 5px #ffc0cb33;
+  margin: 10px 0;
+}
+
+#login {
+  position: fixed;
+  inset: 0;
+  background: #fff0f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#main {
+  display: none;
+  margin-top: 20vh;
+}
+
+input {
+  padding: 12px;
+  font-size: 1em;
+  border-radius: 12px;
+  border: 1px solid #ffb6c1;
+  background: transparent;
+  color: #8b1a2b;
+  margin: 10px;
+  text-align: center;
+}
+
+button {
+  padding: 12px 18px;
+  border-radius: 30px;
+  border: 1px solid #ffb6c1;
+  background: transparent;
+  color: #8b1a2b;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ffb6c1;
+  color: #fff0f5;
+}
+
+/* Pluie de cœurs */
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 18px;
+  animation: fall linear infinite;
+  opacity: 0.6;
+}
+.heart.gold { color: #f781d4; }
+.heart.love { color: #ff69b4; }
+
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Page mot de passe -->
+<div id="login">
+  <h2>Joyeuse Saint-Valentin mon Jean Luc</h2>
+  <h2>Mot de passe stp</h2>
+  <input type="password" id="password" placeholder="Entre le mot de passe">
+  <button onclick="checkPassword()">Laisse-moi te dire</button>
+</div>
+
+<!-- Page message -->
+<div id="main">
+  <h1 id="message"></h1>
+</div>
+
+<script>
+const secretPassword = "1234";
+
+function checkPassword() {
+  const input = document.getElementById("password").value;
+  if (input === secretPassword) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("main").style.display = "block";
+    startHearts();
+    startTyping();
+  } else {
+    alert("Mot de passe incorrect");
+  }
+}
+ 
+const text = "À toi, l’homme de ma vie, je t’aime❤️";
+let i = 0;
+
+function startTyping() {
+  if (i < text.length) {
+    document.getElementById("message").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(startTyping, 80);
+  }
+}
+
+// Pluie de cœurs
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart " + (Math.random() > 0.5 ? "gold" : "love");
+    heart.innerText = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random()*3 + 2) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
